@@ -34,7 +34,7 @@ client.connect(err => {
         const project = req.body
         projectsCollection.insertOne(project)
             .then(result => {
-                res.redirect('http://localhost:3000/addEvent')
+                res.send('successful')
             })
     })
     // Show event in the home page
@@ -106,4 +106,4 @@ client.connect(err => {
 
 });
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
