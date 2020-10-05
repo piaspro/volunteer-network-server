@@ -34,7 +34,7 @@ client.connect(err => {
         const project = req.body
         projectsCollection.insertOne(project)
             .then(result => {
-                res.send('successful')
+                res.send(result.insertedCount > 0)
             })
     })
     // Show event in the home page
@@ -57,9 +57,7 @@ client.connect(err => {
                 _id: ObjectId(req.params.id)
             })
             .then(result => {
-                if(result.deletedCount > 0){
                     console.log(result)
-                }
             })
     })
     // Add volunteer project for user
@@ -68,6 +66,7 @@ client.connect(err => {
         usersCollection.insertOne(userInfo)
             .then(result => {
                 res.send(result.insertedCount > 0)
+                console.log(result)
             })
     })
     // Show volunteer project for user
@@ -94,13 +93,12 @@ client.connect(err => {
     })
     // Remove volunteer project from user
     app.delete('/deleteData/:id', (req, res) => {
+        console.log(req.params.id)
         usersCollection.deleteOne({
                 _id: ObjectId(req.params.id)
             })
             .then(result => {
-                // if(result.deletedCount > 0){
                     console.log(result)
-                // }
             })
     })
 
